@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dot Dager | Filosofía, Gatos y Pepinos</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="imagenes/pepino.png" type="image/x-icon">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="logo" id="logo-toggle">Dot <span>Dager</span></div>
+        <nav>
+            <ul id="menu">
+                <li class="selected"><a href="#left">Inicio</a></li>
+                <li><a href="#intereses">Intereses</a></li>
+                <li><a href="#about">Sobre mí</a></li>
+                <li><a href="#canales" class="enlaceCanales">Mis Canales</a></li>
+                <li><a href="#contact">Contactos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="particles-js"></div>
+    <main>
+        <div class="left" id="left">
+            <div class="imgLogo"></div>
+            <div class="youtube-links">
+                <a href="https://www.youtube.com/@DotDager" target="_blank">
+                    <i class='bx bxl-youtube'></i> Programación
+                </a>
+                <a href="https://www.youtube.com/@ElAntroDeDager" target="_blank">
+                    <i class='bx bxl-youtube'></i> Filosofía
+                </a>
+                <a href="https://www.youtube.com/channel/UCW_wI4MBEzMSXJ-p2xQhmRw" target="_blank">
+                    <i class='bx bxl-youtube'></i> Musiquita
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="mainContent">
+                <h1 id="typing">Bienvenido a Dot Dager!<span id="cursor">|</span></h1>
+                <h2>Amante de los Pepinos y los Chistes malos.</h2>
+                <p id="mainContent-p">¿Estás listo para mejorar tu código mientras te diviertes? ¡Aquí no solo hay programación, también hay mucho buen humor y guitarras! 🎶🐱</p>
+            </div>
+            
+            <div class="next-page">
+                <a href="#intereses"><i id="btn-down" class='bx bx-down-arrow-alt'></i></i></i></a>
+            </div>
+            <div class="home-sci" id="home-sci-nav">
+                <a href="https://github.com/MarianoVilla" target="_blank"><i class='bx bxl-github'></i></a>
+                <a href="https://www.tiktok.com/@elantrodedager" target="_blank"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://discord.com/invite/4NFk6TamAB" target="_blank"><i class='bx bxl-discord-alt' ></i></a>
+                <a href="mailto:DotDager@Gmail.com" target="_blank"><i class='bx bxl-gmail'></i></a>
+                <a href="https://www.twitch.tv/dagerxiv" target="_blank"><i class='bx bxl-twitch' ></i></a>
+                <a href="https://x.com/i/flow/login?redirect_after_login=%2FDager_32" target="_blank"><i class='bx bxl-twitter' ></i></a>
+            </div>
+        </div>
+           
+    </main>
+
+    
+    <div class="content" id="intereses">
+        <div id="particles-js-3"></div>
+        <div class="cartas">
+            <div class="cards">
+                <h2 class="aficionesTitulo" style=" width: 100%">Mis Intereses</h2>
+                <div class="card-container">
+                    <h3 class="card-title">Gatos</h3>
+                    <div class="card">
+                        <article>
+                            <img src="imagenes/gato/fondo.png" alt="imagen fondo gato">
+                            <img src="imagenes/gato/gatoremove2.png">
+                        </article>
+                    </div>
+                </div>
+                
+                
+                <div class="card-container">
+                    <h3 class="card-title">Guitarras</h3>
+                    <div class="card">
+                        <article>
+                            <img src="imagenes/Guitarra/escenario.jpg" alt="imagen fondo guitarra">
+                            <img src="imagenes/Guitarra/guitarra.png" alt="imagen de guitarra">
+                        </article>
+                    </div>
+                </div>
+                
+                <div class="card-container">
+                    <h3 class="card-title">Pepinos</h3>
+                    <div class="card">
+                        <article>
+                            <img src="imagenes/pepino/corazon2.png" alt="imagen fondo pepino">
+                            <img src="imagenes/pepino/pepino (2).png" style="width: 130px;" alt="">
+                        </article>
+                    </div>
+                </div>
+                
+                <div class="card-container">
+                    <h3 class="card-title">Filosofía</h3>
+                    <div class="card">
+                        <article>
+                            <img src="imagenes/pepino/fondo.jpg" alt="imagen fondo pepino">
+                            <img src="imagenes/pepino/pepinoFilosofo.png" alt="">
+                        </article>
+                    </div>
+                </div>
+            </div>
+        
+            
+            <div class="seccion-gatos">
+                <div class="contenido">
+                    <h2>El Mundo de los Gatos</h2>
+                    <p>Los gatos son criaturas misteriosas y fascinantes, siempre listas para sorprendernos con su agilidad y ternura.</p>
+                    <div class="gato-en-movimiento">
+                        <img src="imagenes/gato/gatoremove.png" alt="Gato en movimiento" class="gato">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="seccion-guitarra">             
+            <div class="contenido">                 
+                <h2>El Alma de la Música</h2>                 
+                <p>La guitarra no solo es un instrumento; es un puente hacia emociones profundas. Amo la música en general, pero las guitarras tienen un lugar especial en mi corazón.</p>                 
+                
+                <div class="guitarra-container" onclick="togglePlay()" id="guitarImage">
+                    <img src="imagenes/Guitarra/guitarra.png" alt="Guitarra estilizada" class="guitarra">
+                    <audio id="musicPlayer">
+                        <source src="cancionSuperSeria.mp3" type="audio/mpeg">
+                    </audio>
+                    <div class="play-overlay">
+                        <span class="play-icon"></span>
+                    </div>
+                </div>
+                
+                <p>Explora más sobre mi pasión musical en mi <a href="https://www.youtube.com/channel/UCW_wI4MBEzMSXJ-p2xQhmRw" target="_blank">canal de música</a>.</p>             
+            </div>             
+            <div class="ondas-guitarra"></div>         
+        </div>
+        
+        
+        <div class="seccion-pepinos">
+            <div class="contenido">
+                <h2>El Misterio de los Pepinos</h2>
+                <p>
+                    ¿Sabías que el pepino es el mejor amigo del hombre? No solo es saludable, ¡también es lo suficientemente flexible como para nunca decir que no! 
+                    <a href="juego.html" target="_blank">¡Midamos el poder del pepino!</a>
+                </p>
+                <div class="pepino-dinamico">
+                    <img src="imagenes/pepino/pepino (2).png" alt="Pepino en movimiento" class="pepino">
+                </div>
+            </div>
+        </div>
+        
+        <div class="seccion-filosofica">
+            <div class="contenido">
+                <h2>Filosofía en Perspectiva</h2>
+                <p>
+                    El arte de reflexionar sobre la vida y sus misterios nos conecta con la esencia de la existencia.
+                </p>
+                <div class="fondo-filosofico">
+                    <img src="imagenes/Filosofia/filosofo.png" alt="Figura filosófica" class="filosofo">
+                </div>
+                <button id="btn-filosofia" class="btn-filosofia">Che, ¿Quieres datos filosóficos?</button>
+                <p id="dato-filosofico" class="dato-filosofico"></p>
+            </div>
+        </div>
+    </div>
+
+    
+    <!--ABOUT-->
+    <div class="about" id="about">
+        <div id="particles-js-2"></div>
+        <div class="aboutC">
+    
+            <div class="about-contents">
+                <div class="about-content">
+                    <h2>¿Quieres saber quién soy?</h2>
+                    <p>Soy Dot Dager, un apasionado creador de contenido que vive en la intersección entre la tecnología y el arte... Ah, y tambien soy gilipollas.</p>
+                    <a href="#canales">SABER MÁS</a>
+                </div>
+                <div class="about-img">
+                    <div class="img"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="channels" id="canales">
+        <h2>Mis Canales</h2>
+        <div class="channels-grid">
+            <div class="channel-card">
+                <div class="channel-img programming" style="background-image: url(imagenes/Thumb_1732155531027.jpg);"></div>
+                <h3>Programación</h3>
+                <p>Tutoriales, consejos y humor geek. Aprende a programar mientras te diviertes con chistes que solo un verdadero desarrollador podría apreciar.</p>
+                <a href="https://www.youtube.com/@DotDager" target="_blank" class="channel-link">Explorar Canal</a>
+            </div>
+            <div class="channel-card">
+                <div class="channel-img music" style="background-image: url(imagenes/Guitarra/Screenshot_1.png); background-position: top;"></div>
+                <h3>Música</h3>
+                <p>Desde tutoriales de instrumentos hasta mis propias composiciones. Un espacio donde la creatividad musical no tiene límites.</p>
+                <a href="https://www.youtube.com/channel/UCW_wI4MBEzMSXJ-p2xQhmRw" target="_blank" class="channel-link">Explorar Canal</a>
+                
+            </div>
+            
+            <div class="channel-card">
+                <div class="channel-img philosophy" style="background-image: url(imagenes/Screenshot\ 2024-06-22\ 17-50-49_1732155516222.jpg);"></div>
+                <h3>El Antro de Dager</h3>
+                <p>Canal de Reflexiones personales, debates filosóficos y conversaciones profundas sobre la vida, el universo y todo lo demás.</p>
+                <a href="https://www.youtube.com/@ElAntroDeDager" target="_blank" class="channel-link">Explorar Canal</a>
+            </div>
+            <div class="channel-card">
+                <div class="channel-img clips" style="background-image: url(imagenes/Screenshot\ 2024-06-01\ 17-55-42_1732155487729.png);"></div>
+                <h3>Dager Clips</h3>
+                <p> Descubre un mundo de experiencias únicas, anécdotas inolvidables, y momentos cargados de risas que te harán desconectarte de la rutina.</p>
+                <a href="https://www.youtube.com/@DagerClips/featured" target="_blank" class="channel-link">Explorar Canal</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-channel">
+        <div class="mc">
+          
+            <div class="main-channel-img" style="background-image: url('imagenes/DangharTemplate_1732155463223.jpg');"></div>
+            <div class="main-channel-content">
+                <h2>Dot Dager</h2>
+                <p>
+                    Bienvenido al canal principal donde la programación se convierte en arte. Dot Dager no solo enseña código, sino que lo hace con una mezcla de humor, creatividad y pasión única. Aprende desde los fundamentos hasta las técnicas más avanzadas mientras disfrutas de un enfoque fresco y entretenido.
+                </p>
+                <p>
+                    Aquí no solo se trata de escribir código, sino de entenderlo, disfrutarlo y usarlo para crear cosas increíbles. ¡Únete y vive la experiencia Dot Dager!
+                </p>
+                <a href="https://www.youtube.com/@DotDager" target="_blank" class="main-channel-link">Visita el Canal</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Twitch -->
+    <div class="twitch-section">
+        <div class="tw-s">
+            <div class="twitch-content">
+                <h2>Streaming en Twitch</h2>
+                <p>
+                    Acompáñame en mis transmisiones en vivo, donde comparto contenido sobre desarrollo, gaming y más.
+                    Conéctate, haz preguntas y sé parte de la comunidad.
+                </p>
+                <a href="https://www.twitch.tv/dagerxiv" target="_blank" class="twitch-link">Visita mi Twitch</a>
+            </div>
+            <img src="imagenes/twitch-removebg-preview.png" alt="">
+        </div>
+    </div>
+    
+    <div class="music-section">
+        <div class="music">
+            <div class="music-content">
+                <h2>Mi Mundo Musical</h2>
+                <p>La música es mi segunda naturaleza. Domino varios instrumentos y comparto mi pasión a través de composiciones originales y tutoriales detallados. Cada nota cuenta una historia, cada melodía tiene un propósito.</p>
+                <div class="instruments">
+                    <div class="instrument">Guitarra</div>
+                    <div class="instrument">Piano</div>
+                    <div class="instrument">Batería</div>
+                    <div class="instrument">Bajo</div>
+                    <div class="instrument">Pepinos</div>
+                </div>
+                <br>
+                <a href="https://open.spotify.com/intl-es/artist/6bkClBMJd4qKxJp0J5vHsz?nd=1" target="_blank">
+                    <img src="imagenes/Guitarra/sp.png" alt="spotify" style="width: 100px;">
+                </a>
+                <p><a id="enlaceS" href="https://open.spotify.com/intl-es/artist/6bkClBMJd4qKxJp0J5vHsz?nd=1" target="_blank">Sigueme en spotify para no perderte ninguna de mis canciones</a></p>
+            </div>
+            <div class="music-img"></div>
+        </div>
+    </div>
+
+    <div class="philosophy">
+        <div class="filosofia">
+            <h2>Pensamiento y Reflexión</h2>
+            <div class="philosophy-content">
+                <p>En El Antro de Dager, abordamos las grandes preguntas de la vida desde ángulos inesperados, mezclando análisis cinematográfico, programación y debates sobre tecnología, arte y sociedad. Aquí no solo reflexionamos sobre cómo las películas nos hacen pensar, sino también sobre cómo el código y las ideas pueden moldear nuestro mundo.</p>
+                <p>Exploramos desde cómo las historias del cine revelan aspectos de nuestra psicología hasta cómo los avances en inteligencia artificial redefinen la creatividad humana. Todo ello con un toque único y lleno de curiosidad, para quienes buscan conexiones más allá de lo evidente.</p>
+
+                <div class="topics">
+                    <div class="topic">Existencialismo Digital</div>
+                    <div class="topic">Tecnología y Consciencia</div>
+                    <div class="topic">Arte en la Era Digital</div>
+                    <div class="topic">Desarrollo Personal</div>
+                    <div class="topic">Ética Tecnológica</div>
+                    <div class="topic">Creatividad y Cognición</div>
+                </div>
+            </div>
+            <div class="philosophy-image"></div>
+        </div>
+    </div>
+
+    <div class="contact" id="contact">
+        <div class="contact-content">
+            <h2>¡Únete a Nuestra Comunidad!</h2>
+            <p>¿Listo para ser parte de algo especial? Nuestro servidor de Discord es el corazón de nuestra comunidad, donde los apasionados por la tecnología, música y filosofía se reúnen para crear algo extraordinario.</p>
+            
+            <div class="discord-highlight">
+                <div class="discord-features">
+                    <h3>¿Qué encontrarás en nuestro Discord?</h3>
+                    <ul>
+                        <li>🎮 Canales exclusivos para programadores</li>
+                        <li>🎵 Jueguitos</li>
+                        <li>💭 Debates filosóficos</li>
+                        <li>💡 Mentorías y networking</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://discord.com/invite/4NFk6TamAB" target="_blank" class="social-link discord-link">¡Únete a Discord!</a>
+                <a href="https://x.com/Dager_32?mx=2" target="_blank" class="social-link x">X</a>
+                <a href="https://www.instagram.com/dager.32/" target="_blank" class="social-link instagram">Instagram</a>
+                <a href="https://www.twitch.tv/dagerxiv" target="_blank" class="social-link twitch">Twitch</a>
+                <a href="https://open.spotify.com/intl-es/artist/6bkClBMJd4qKxJp0J5vHsz?nd=1" target="_blank" class="social-link spotify">Spotify</a>
+                <a href="https://www.tiktok.com/@elantrodedager" target="_blank" class="social-link tiktok">TikTok</a>
+                <a href="https://www.youtube.com/@DotDager" target="_blank" class="social-link programacion">Programación</a>
+                <a href="https://www.youtube.com/@ElAntroDeDager" target="_blank" class="social-link antro-dager">El Antro de Dager</a>
+                <a href="https://www.youtube.com/channel/UCW_wI4MBEzMSXJ-p2xQhmRw" target="_blank" class="social-link musiquita">Musiquita</a>
+                <a href="https://www.youtube.com/@DagerClips/featured" target="_blank" class="social-link dager-clips">Dager Clips</a>
+            </div>
+            
+        </div>
+
+        <footer class="footer">
+            <p>&copy; DotDager 2024</p>
+        </footer>
+        
+    </div>
+
+    <script src="main.js"></script>
+    <script src="js/particles.min.js"></script>
+    <script src="js/particle.js"></script>
+
+</body>
+
+</html>

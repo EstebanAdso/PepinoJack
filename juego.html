@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PepinoJack</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #87CEEB;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: #4CAF50;
+            border: 4px solid #2E7D32;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #score {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+
+        #timer {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            z-index: 100;
+        }
+
+        #timer-bar {
+            width: 100%;
+            height: 100%;
+            background: #f44336;
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+
+        #player {
+            position: absolute;
+            bottom: 100px;
+            width: 80px;
+            height: 80px;
+            background: #8B4513;
+            border-radius: 10px;
+            z-index: 50;
+            transition: left 0.1s ease-out;
+        }
+
+        #axe {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: #A9A9A9;
+            right: -20px;
+            top: 10px;
+            border-radius: 5px;
+            transform-origin: 20px 50px;
+        }
+
+        .cucumber-section {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: #2E7D32;
+            left: 160px;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        /* Diseño del pepino */
+        .cucumber-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, 
+            #81C784 5px, 
+            transparent 6px) 0 0,
+            radial-gradient(circle at center, 
+            #81C784 5px, 
+            transparent 6px) 10px 10px;
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .branch {
+            position: absolute;
+            width: 120px;
+            height: 25px;
+            background: #795548;
+            top: 35px;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .branch::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            width: 100%;
+            height: 15px;
+            background: #8D6E63;
+            border-radius: 15px;
+        }
+
+        .branch.left {
+            right: 60px;
+            transform: rotate(-5deg);
+        }
+
+        .branch.right {
+            left: 60px;
+            transform: rotate(5deg);
+        }
+
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+        }
+
+        #restart-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #restart-btn:hover {
+            background: #45a049;
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 40;
+        }
+
+        @keyframes chopAnimation {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-45deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            font-size: 16px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">0</div>
+        <div id="timer"><div id="timer-bar"></div></div>
+        <div id="player">
+            <div id="axe"></div>
+        </div>
+        <div class="instructions">
+            ← Izquierda | Derecha →<br>
+            ¡Corta rápido para ganar tiempo!
+        </div>
+        <div id="game-over">
+            <h2>¡Juego Terminado!</h2>
+            <p>Puntaje: <span id="final-score">0</span></p>
+            <button id="restart-btn">Jugar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        const gameContainer = document.getElementById('game-container');
+        const player = document.getElementById('player');
+        const axe = document.getElementById('axe');
+        const scoreElement = document.getElementById('score');
+        const timerBar = document.getElementById('timer-bar');
+        const gameOver = document.getElementById('game-over');
+        const finalScore = document.getElementById('final-score');
+        const restartBtn = document.getElementById('restart-btn');
+
+        let score = 0;
+        let timeLeft = 100;
+        let isGameOver = false;
+        let playerSide = 'left';
+        let sections = [];
+        let gameLoop;
+        let timerLoop;
+        let lastChopTime = Date.now();
+        let isTimerPaused = false;
+        let gameStarted = false;
+
+        
+        const PLAYER_LEFT = 80;
+        const PLAYER_RIGHT = 240;
+        
+        function createSection(y, withBranch = true) {
+            const section = document.createElement('div');
+            section.className = 'cucumber-section';
+            section.style.bottom = y + 'px';
+            
+            if (withBranch) {
+                const branchSide = Math.random() < 0.5 ? 'left' : 'right';
+                const branch = document.createElement('div');
+                branch.className = `branch ${branchSide}`;
+                section.appendChild(branch);
+                section.branchSide = branchSide;
+            }
+            
+            gameContainer.appendChild(section);
+            return section;
+        }
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = Math.random() * 8 + 4 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = '#2E7D32';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 3 + Math.random() * 5;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                gameContainer.appendChild(particle);
+                
+                let posX = x;
+                let posY = y;
+                let time = 0;
+                
+                function animateParticle() {
+                    time += 0.1;
+                    posX += vx;
+                    posY += vy + time * 1.5;
+                    
+                    particle.style.left = posX + 'px';
+                    particle.style.top = posY + 'px';
+                    particle.style.opacity = 1 - time/2;
+                    
+                    if (time < 1) {
+                        requestAnimationFrame(animateParticle);
+                    } else {
+                        particle.remove();
+                    }
+                }
+                
+                animateParticle();
+            }
+        }
+
+        function movePlayer(side) {
+            if (isGameOver) return;
+            
+            playerSide = side;
+            player.style.left = (side === 'left' ? PLAYER_LEFT : PLAYER_RIGHT) + 'px';
+            player.style.transform = `scaleX(${side === 'left' ? 1 : -1})`;
+        }
+
+        function chop() {
+    if (isGameOver) return;
+
+    axe.style.animation = 'chopAnimation 0.1s ease-out';
+    setTimeout(() => axe.style.animation = '', 100);
+
+    const bottomSection = sections[0];
+    if (bottomSection && parseInt(bottomSection.style.bottom) < 150) {
+        if (bottomSection.branchSide === playerSide) {
+            endGame();
+            return;
+        }
+
+        createParticles(parseInt(bottomSection.style.left) + 40, 400);
+        bottomSection.remove();
+        sections.shift();
+
+        // Actualizar puntuación y tiempo basado en la velocidad de corte
+        score++;
+        scoreElement.textContent = score;
+
+        const now = Date.now();
+        const timeSinceLastChop = now - lastChopTime;
+        lastChopTime = now;
+
+        // Bonificación de tiempo ajustada
+        if (timeSinceLastChop < 1000) {  // Corte rápido
+            timeLeft = Math.min(timeLeft + 3, 100);  // Bonus más grande
+        } else if (timeSinceLastChop < 3000) {  // Corte medio
+            timeLeft = Math.min(timeLeft + 2, 100);  // Bonus moderado
+        } else {  // Corte lento
+            timeLeft = Math.min(timeLeft + 1, 100);  // Bonus pequeño
+        }
+
+        timerBar.style.width = timeLeft + '%';
+        isTimerPaused = false;  // Reactivar el timer cuando corta
+    }
+}
+
+        
+
+        function updateGame() {
+            if (isGameOver) return;
+            
+            // Mover secciones solo si el timer no está pausado
+            if (!isTimerPaused) {
+                sections.forEach((section, index) => {
+                    const currentBottom = parseInt(section.style.bottom);
+                    section.style.bottom = (currentBottom - 10) + 'px';
+
+                    
+                    if (currentBottom < -100) {
+                        section.remove();
+                        sections.splice(index, 1);
+                    }
+                });
+            }
+            
+            // Añadir nuevas secciones si es necesario
+            while (sections.length < 8) {
+                const lastSection = sections[sections.length - 1];
+                const newY = lastSection ? 
+                    parseInt(lastSection.style.bottom) + 100 : 
+                    600;
+                
+                sections.push(createSection(newY));
+            }
+
+            // Verificar si debe pausar el timer
+            const bottomSection = sections[0];
+            if (bottomSection && parseInt(bottomSection.style.bottom) < 150) {
+                isTimerPaused = true;
+            }
+        }
+
+        function startGame() {
+            sections.forEach(section => section.remove());
+            sections = [];
+            score = 0;
+            timeLeft = 100;
+            isGameOver = false;
+            isTimerPaused = false;
+            lastChopTime = Date.now();
+            gameStarted = true;  // Marcar que el juego ha comenzado
+
+            scoreElement.textContent = '0';
+            timerBar.style.width = '100%';
+            gameOver.style.display = 'none';
+            movePlayer('left');
+            
+            for (let i = 0; i < 8; i++) {
+                sections.push(createSection(i * 100));
+            }
+
+            gameLoop = setInterval(updateGame, 16);
+            timerLoop = setInterval(() => {
+                timeLeft -= 0.2; // El tiempo siempre disminuye
+                timerBar.style.width = timeLeft + '%';
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 16);
+        }
+
+
+        function endGame() {
+            isGameOver = true;
+            clearInterval(gameLoop);
+            clearInterval(timerLoop);
+            gameOver.style.display = 'block';
+            finalScore.textContent = score;
+        }
+
+        // Event Listeners
+        document.addEventListener('keydown', (e) => {
+            if (!gameStarted) {
+                gameStarted = true;  // El juego comienza cuando se presiona cualquier tecla
+                startGame();         // Inicia el juego
+            }
+            if (e.key === 'ArrowLeft') {
+                movePlayer('left');
+                chop();
+            }
+            if (e.key === 'ArrowRight') {
+                movePlayer('right');
+                chop();
+            }
+        });
+
+
+        let touchStart = null;
+        gameContainer.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            touchStart = e.touches[0].clientX;
+        });
+
+        gameContainer.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (touchStart === null) return;
+            
+            const touchEnd = e.changedTouches[0].clientX;
+            const diff = touchEnd - touchStart;
+            
+            if (Math.abs(diff) < 10) {
+                const rect = gameContainer.getBoundingClientRect();
+                const x = e.changedTouches[0].clientX - rect.left;
+                movePlayer(x < rect.width / 2 ? 'left' : 'right');
+                chop();
+            }
+            touchStart = null;
+        });
+
+        restartBtn.addEventListener('click', startGame);
+
+        startGame();
+    </script>
+</body>
+</html>
